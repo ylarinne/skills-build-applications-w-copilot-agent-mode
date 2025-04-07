@@ -7,7 +7,7 @@ SECRET_KEY = 'your-secret-key'
 DEBUG = True  # Ensure debug mode is enabled for development
 
 # Update ALLOWED_HOSTS to include localhost and the codespace URL
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'effective-winner-7vw6rwj9rpjhrv5v-8000.app.github.dev']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'effective-winner-7vw6rwj9rpjhrv5v-8000.app.github.dev', 'effective-winner-7vw6rwj9rpjhrv5v-3000.app.github.dev']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -23,6 +23,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -30,7 +31,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'octofit_tracker.urls'
@@ -74,4 +74,13 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ALLOW_ALL_ORIGINS = True
+# Remove the wildcard setting to avoid conflicts
+CORS_ALLOW_ALL_ORIGINS = False
+
+# Explicitly allow the React app's origin
+CORS_ALLOWED_ORIGINS = [
+    'https://effective-winner-7vw6rwj9rpjhrv5v-3000.app.github.dev',
+]
+
+# Allow credentials if needed
+CORS_ALLOW_CREDENTIALS = True
